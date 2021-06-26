@@ -6,7 +6,7 @@
 
 using namespace std;
 
-enum class STATUS { BLANK, SEA, SHIP, RECKS , MISSED_SHOT};
+enum class STATUS { BLANK, SEA, SHIP, RECKS , MISSED_SHOT, ACTIVE_SHOT};
 ostream& operator << (ostream& os, STATUS value)
 {
 	char output;
@@ -35,6 +35,11 @@ ostream& operator << (ostream& os, STATUS value)
 	case (STATUS::MISSED_SHOT):
 	{
 		output = 'X';
+		break;
+	}
+	case (STATUS::ACTIVE_SHOT):
+	{
+		output = '\'';
 		break;
 	}
 	}

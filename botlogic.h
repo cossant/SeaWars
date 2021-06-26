@@ -118,8 +118,9 @@ public:
 		else
 		{
 			shot_index = randomSeaPos();
-			cout << "Бот совершает выстрел по позиции "<<ChLtTransf((shot_index % FIELDSIZE))<< shot_index / FIELDSIZE<<".\n";
+			cout << "Бот совершает выстрел по позиции "<<ChLtTransf((shot_index % FIELDSIZE))<< (shot_index / FIELDSIZE) + 1<<".\n";
 		}
+		playfield->data[shot_index] = STATUS::ACTIVE_SHOT;
 	}
 
 	void handlereport(REPORT result)
@@ -131,7 +132,7 @@ public:
 			if (gotpinch)
 			{
 				// If some direction was already chosen.
-				if (pinch_dir != -1)
+				if ((ActShpLen + other_side_length) > 1)
 					pinch_dir = invertdir(pinch_dir);
 				else
 				{
@@ -144,7 +145,7 @@ public:
 		else
 		{
 			playfield->data[shot_index] = STATUS::RECKS;
-			ActShpCord[ActShpLen++] = shot_index;
+			ActShpCord[ActShpLen++ + other_side_length] = shot_index;
 			if (!gotpinch)
 			{
 				pinch_dir = sides.side();
@@ -180,6 +181,7 @@ public:
 
 				// Reset the destroyed deck counter.
 				ActShpLen = 0;
+				other_side_length = 0;
 
 				// Reset the directions pool and leave the "pinch" state.
 				sides.reset();
@@ -187,6 +189,13 @@ public:
 				gotpinch = false;
 			}
 		}
+	}
+
+
+	void display()
+	{
+		cout << "Bot vision field for debug purposes\n";
+		playfield->display();
 	}
 
 
@@ -242,6 +251,14 @@ private:
 		}
 		bool isPossible[4];
 	};
+
+
+	// To prevent collizions with previos seted misses.
+	bool sideSafe(int sidecode, int field_index)
+	{
+
+	}
+
 
 	// Current situation information.
 	fconfig* botfield;
@@ -409,7 +426,6 @@ private:
 		default:
 			cout << "Wait, thats totally illegal!";
 			exit(-1);
-			break;
 			break;
 		}
 	}

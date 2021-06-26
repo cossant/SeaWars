@@ -10,10 +10,12 @@ int main()
 	botbrains dummy;
 	dummy.initplay();
 	char answ;
+	string _;
 	cin >> answ;
 	while (answ != 'c')
 	{
 		dummy.generateshot();
+		dummy.display();
 		cout << "Report is: ";
 		cin >> answ;
 		if (answ == 'h')
@@ -25,6 +27,7 @@ int main()
 		else
 			dummy.handlereport(REPORT::MISS);
 		system("cls");
+		cout << endl;
 	}
 	// EOTesting logic.
 }
