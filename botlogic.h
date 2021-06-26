@@ -32,10 +32,16 @@ public:
 		botfield = new fconfig();
 		botfield->generateBotField();
 		playfield = new fconfig();
+
+		// Filling player's field with water.
+		for (int i = 0; i < FIELDSIZE * FIELDSIZE; i++)
+			playfield->data[i] = STATUS::SEA;
+
 		shot_index = -1;
 		gotpinch = false;
 		decks_downed = 0;
 		sides.reset();
+		other_side_length = 0;
 		// Setting current ship which bot are aiming for as no ship.
 		for (int i = 0; i < 4; i++) ActShpCord[i] = -1;
 		ActShpLen = 0;
@@ -102,8 +108,9 @@ public:
 			{
 				// Invert direction.
 				pinch_dir = invertdir(pinch_dir);
-				currX = pinch_index % FIELDSIZE + modX * ActShpLen;
-				currY = pinch_index / FIELDSIZE + modY * ActShpLen;
+				other_side_length = ActShpLen - 1;
+				ActShpLen = 1;
+				generateshot();
 			}
 
 		}
@@ -147,6 +154,9 @@ public:
 			// The advanced scenario with actions to handle "destroyed ship" situation.
 			if (result == REPORT::DESTROYED)
 			{
+				// Handle the two sides destruction situation.
+				ActShpLen = ActShpLen + other_side_length;
+
 				// Mark such leghth ship as destructed.
 				int arrindex = 0;
 				while (ships[arrindex] != ActShpLen)
@@ -238,6 +248,7 @@ private:
 	fconfig* playfield;
 	bool PShpAlive[10];
 	int shot_index;
+	int other_side_length;
 
 	// Pinch situattion info.
 	bool gotpinch;
