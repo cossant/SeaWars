@@ -43,6 +43,7 @@ ostream& operator << (ostream& os, STATUS value)
 }
 const int FIELDSIZE = 10;
 
+
 class fconfig
 {
 public:
@@ -114,10 +115,20 @@ public:
 	}
 
 
+	int count(STATUS condition)
+	{
+		int countticker = 0;
+		for (int i = 0; i < FIELDSIZE * FIELDSIZE; i++)
+			if (data[i] == condition)
+				countticker++;
+		return countticker;
+	}
+
 	STATUS data[FIELDSIZE * FIELDSIZE];
 
 
 private:
+
 	class sidePool
 	{
 	public:
@@ -169,7 +180,6 @@ private:
 		}
 		bool isPossible[4];
 	};
-
 
 	class fieldsPool
 	{
@@ -333,3 +343,4 @@ private:
 		}
 	}
 };
+
