@@ -5,7 +5,7 @@ SeaBattleGameflow::SeaBattleGameflow(botbrains* suggested_bot)
 {
 	{
 		string player_responce;
-		cout << "Начинается игра в морской бой.\n Для игры используется индексация поля буквами АНГЛИЙСКОГО алфавита по ВЕРХНЕЙ ГРАНИ поля СЛЕВА-НАПРАВО,\nи "
+		cout << "Начинается игра в морской бой.\n\nДля игры используется индексация поля буквами АНГЛИЙСКОГО алфавита по ВЕРХНЕЙ ГРАНИ поля СЛЕВА-НАПРАВО,\nи "
 			<<"цифрами, начиная с единицы по ЛЕВОЙ грани СВЕРХУ-ВНИЗ.\nХотите ли вы ходить первым(Y/N)?: ";
 		cin >> player_responce;
 		cin.ignore();
@@ -20,7 +20,6 @@ void SeaBattleGameflow::rungame()
 {
 	while (!bot->gamefinish())
 	{
-		bot->display();
 		bool successfull_shot =  botturn ? botactions() : playeractions();
 		if (!successfull_shot)
 			if (botturn == true) botturn = false;
@@ -68,6 +67,7 @@ bool SeaBattleGameflow::botactions()
 			cout << "Не распознан ввод. Пожалуйста, вводите слово так, как в примере\n";
 	} while (!gotvalidinput);
 	bot->handlereport(rep);
+	system("cls");
 	if (rep == REPORT::MISS)
 		return false;
 	else
@@ -98,5 +98,6 @@ bool SeaBattleGameflow::playeractions()
 	}
 	cout << "Нажмите \"Enter\" для продолжения...\n";
 	getline(cin,player_input);
+	system("cls");
 	return result;
 }

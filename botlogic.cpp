@@ -225,7 +225,7 @@ void botbrains::handlereport(REPORT result)
 
 			// Mark such leghth ship as destructed.
 			int arrindex = 0;
-			while (ships[arrindex] != ActShpLen)
+			while ((ships[arrindex] != ActShpLen) || (PShpAlive[arrindex] == false))
 			{
 				arrindex++;
 			}
