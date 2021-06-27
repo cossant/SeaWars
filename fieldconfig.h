@@ -6,7 +6,7 @@
 
 using namespace std;
 
-enum class STATUS { BLANK, SEA, SHIP, RECKS , MISSED_SHOT};
+enum class STATUS { BLANK, SEA, SHIP, RECKS , MISSED_SHOT, ACTIVE_SHOT};
 ostream& operator << (ostream& os, STATUS value)
 {
 	char output;
@@ -37,11 +37,17 @@ ostream& operator << (ostream& os, STATUS value)
 		output = 'X';
 		break;
 	}
+	case (STATUS::ACTIVE_SHOT):
+	{
+		output = '\'';
+		break;
+	}
 	}
 	cout << output;
 	return os;
 }
 const int FIELDSIZE = 10;
+
 
 class fconfig
 {
@@ -114,10 +120,20 @@ public:
 	}
 
 
+	int count(STATUS condition)
+	{
+		int countticker = 0;
+		for (int i = 0; i < FIELDSIZE * FIELDSIZE; i++)
+			if (data[i] == condition)
+				countticker++;
+		return countticker;
+	}
+
 	STATUS data[FIELDSIZE * FIELDSIZE];
 
 
 private:
+
 	class sidePool
 	{
 	public:
@@ -169,7 +185,6 @@ private:
 		}
 		bool isPossible[4];
 	};
-
 
 	class fieldsPool
 	{
@@ -333,3 +348,4 @@ private:
 		}
 	}
 };
+

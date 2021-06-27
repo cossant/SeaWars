@@ -1,9 +1,12 @@
-#include "manager.h";
+#include "fieldconfig.h";
+#include "botlogic.h";
 
 int main()
 {
 	setlocale(LC_CTYPE, "Russian");
-	fconfig * test = new fconfig();
-	test->generateBotField();
-	test->display();
+	
+
+	// Testing logic.
+	
+	// EOTesting logic.
 }
