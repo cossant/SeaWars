@@ -25,13 +25,13 @@ public:
 	void generateBotField();
 	// Gets the amount of fields which are in the requested state at the moment.
 	int count(STATUS condition);
+	// Checks if there are no ships in range of one around chosen position.
+	bool PositionSafe(int);
 private:
 	// The bank of the sides code numbers(0 - 3) which can be provided by the request.
 	class sidePool;
 	// The bank of the fields indexes(0-99) which can be provided by the request.
 	class fieldsPool;
-	// Checks if there are no ships in range of one around chosen position.
-	bool PositionSafe(int);
 	// Using the "PositionSafe" function checks if the ship can be fully installed by the chosen parametres.
 	bool PlacementPossible(int, int, int);
 	// Actually places the ship by modifying the "data[]".

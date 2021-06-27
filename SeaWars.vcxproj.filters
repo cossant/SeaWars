@@ -24,12 +24,18 @@
     <ClCompile Include="botlogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SeaWManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="botlogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="fieldconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SeaWManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
