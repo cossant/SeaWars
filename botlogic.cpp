@@ -60,14 +60,21 @@ botbrains::botbrains()
 }
 
 
-bool botbrains::shotconnected(int fieldindex)
+REPORT botbrains::shotconnected(int fieldindex)
 {
 	if (botfield->data[fieldindex] == STATUS::SHIP)
 	{
-		botfield->data[fieldindex] == STATUS::RECKS;
-		return true;
+		botfield->data[fieldindex] = STATUS::RECKS;
+		if (botfield->PositionSafe(fieldindex))
+			return REPORT::DESTROYED;
+		else
+			return REPORT::HIT;
 	}
-	return false;
+
+	botfield->data[fieldindex] = STATUS::MISSED_SHOT;
+
+
+	return REPORT::MISS;
 }
 
 
@@ -149,7 +156,7 @@ void botbrains::generateshot()
 		if (currX > -1 && currX < FIELDSIZE && currY > -1 && currY < FIELDSIZE)
 		{
 			shot_index = currX + currY * FIELDSIZE;
-			cout << "Бот совершает выстрел по позиции " << ChLtTransf((shot_index % FIELDSIZE)) << shot_index / FIELDSIZE << ".\n";
+			cout << "Бот совершает выстрел по позиции " << ChLtTransf((shot_index % FIELDSIZE)) << (shot_index) / FIELDSIZE + 1 << ".\n";
 		}
 		else
 		{
@@ -253,7 +260,10 @@ void botbrains::handlereport(REPORT result)
 void botbrains::display()
 {
 	cout << "Bot vision field for debug purposes\n";
+	cout << "Player field:\n";
 	playfield->display();
+	cout << "Bot field:\n";
+	botfield->display();
 }
 
 
@@ -444,4 +454,17 @@ char botbrains::ChLtTransf(int input)
 		exit(-1);
 		break;
 	}
+}
+
+
+bool botbrains::gamefinish()
+{
+	bool statement1 = true;
+	bool statement2 = true;
+	for (int i = 0; i < 10; i++)
+		if (PShpAlive[i])
+			statement1 = false;
+	if (botfield->count(STATUS::SHIP))
+		statement2 = false;
+	return (statement1 || statement2);
 }

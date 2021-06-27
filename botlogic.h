@@ -9,7 +9,7 @@ public:
 	// Initialyzes inner bot pool.
 	botbrains();
 	// Checks if the player shot was landed and changes bot's field accrdingly.
-	bool shotconnected(int);
+	REPORT shotconnected(int);
 	// Generates new playfield via "fieldconfig" and sets various variables the the starting states.
 	void initplay();
 	// Calculates the new position to be shot according to the previous aquired information.
@@ -18,6 +18,11 @@ public:
 	void handlereport(REPORT);
 	// Prints the bot field using the "fieldconfig" methods.											TODO: DEBUGGING PURPOUSE ONLY. DELETE BEFORE RELEASE.
 	void display();
+	// Checks if there are no more bot's or player's ships.
+	bool gamefinish();
+	// Two functions to ('A' -> 1) and (1 -> 'A').
+	int ChLtTransf(char);
+	char ChLtTransf(int);
 
 private:
 	// Provides unique side codes at user's request.
@@ -49,7 +54,5 @@ private:
  	int randomSeaPos();
 	// Covers everything around the chosen position with a "MISS" flags.
 	void battleMark(int);
-	// Two functions to ('A' -> 1) and (1 -> 'A').
-	int ChLtTransf(char);
-	char ChLtTransf(int);
+	
 };

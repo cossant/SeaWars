@@ -1,5 +1,6 @@
 #include "fieldconfig.h";
 #include "botlogic.h";
+#include "SeaWManager.h";
 
 int main()
 {
@@ -7,7 +8,7 @@ int main()
 	
 
 	// Testing logic.
-	botbrains dummy;
+	/*botbrains dummy;
 	char temp;
 	dummy.initplay();
 	do
@@ -17,6 +18,12 @@ int main()
 		cin >> temp;
 		dummy.handlereport(temp == 'h' ? REPORT::HIT : (temp == 'd') ? REPORT::DESTROYED : REPORT::MISS);
 		system("cls");
-	} while (temp != 'c');
+	} while (temp != 'c');*/
+
+
+	botbrains * bot = new botbrains();
+	SeaBattleGameflow game(bot);
+	game.rungame();
+	delete bot;
 	// EOTesting logic.
 }

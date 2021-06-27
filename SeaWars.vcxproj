@@ -142,10 +142,12 @@
     <ClCompile Include="botlogic.cpp" />
     <ClCompile Include="fieldconfig.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SeaWManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="botlogic.h" />
     <ClInclude Include="fieldconfig.h" />
+    <ClInclude Include="SeaWManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
