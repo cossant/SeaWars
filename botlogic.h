@@ -137,7 +137,10 @@ public:
 				else
 				{
 					// Chosing another direction.
-					pinch_dir = sides.side();
+					do
+					{
+						pinch_dir = sides.side();
+					} while (!sideSafe(pinch_dir, pinch_index));
 				}
 			}
 		}
@@ -148,8 +151,11 @@ public:
 			ActShpCord[ActShpLen++ + other_side_length] = shot_index;
 			if (!gotpinch)
 			{
-				pinch_dir = sides.side();
-				pinch_index = shot_index;
+				do
+				{ 
+					pinch_dir = sides.side();
+					pinch_index = shot_index;
+				} while (!sideSafe(pinch_dir, pinch_index));
 			}
 			gotpinch = true;
 			// The advanced scenario with actions to handle "destroyed ship" situation.
@@ -256,7 +262,39 @@ private:
 	// To prevent collizions with previos seted misses.
 	bool sideSafe(int sidecode, int field_index)
 	{
-
+		int modX, modY, currX, currY;
+		switch (sidecode)
+		{
+			// 0 - Up.
+		case (0):
+			modX = 0;
+			modY = -1;
+			break;
+			// 0 - right.
+		case (1):
+			modX = 1;
+			modY = 0;
+			break;
+			// 0 - down.
+		case (2):
+			modX = 0;
+			modY = 1;
+			break;
+			// 0 - left.
+		case (3):
+			modX = -1;
+			modY = 0;
+			break;
+		default:
+			cout << "Something's wrong I can feel it, but this time in botlogic!\n";
+			exit(-1);
+			break;
+		}
+		currX = field_index % FIELDSIZE + modX;
+		currY = field_index / FIELDSIZE + modY;
+		if (playfield->data[currX + currY * FIELDSIZE] != STATUS::SEA)
+			return false;
+		return true;
 	}
 
 
